@@ -16,7 +16,7 @@ import com.example.demo.Entity.UserEntity;
 import com.example.demo.Entity.UserInterestAdvertiseEntity;
 import com.example.demo.Entity.UserInterestKey;
 import com.example.demo.dto.AdvertiseBidsListDto;
-import com.example.demo.dto.SuccessResponseDto;
+import com.example.demo.dto.SimpleMessageResponseDto;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.BookAdvertiseRepository;
 import com.example.demo.repository.UserInterestRepository;
@@ -49,7 +49,7 @@ public class BidForAdvertiseService {
 		
 		userInterestRepo.save(userInterest);
 		
-		return ResponseEntity.ok(new SuccessResponseDto("Your response addded successfully."));
+		return ResponseEntity.ok(new SimpleMessageResponseDto("Your response addded successfully."));
 	}
 	
 	public ResponseEntity<Object> deleteMyBid(Long user_id, Long advertise_id){
@@ -72,7 +72,7 @@ public class BidForAdvertiseService {
 			return bidData;
 		}).orElseThrow(()-> new ResourceNotFoundException("No bid exists for requested query."));
 		
-		return ResponseEntity.ok(new SuccessResponseDto("Your interest removed successfully."));
+		return ResponseEntity.ok(new SimpleMessageResponseDto("Your interest removed successfully."));
 	}
 	
 	public ResponseEntity<Object> finalizeBid(Long user_id, Long advertise_id, Long advertise_owner_id){
@@ -103,7 +103,7 @@ public class BidForAdvertiseService {
 		
 		sendBidFinaliseNotification(mailDetails);
 		
-		return ResponseEntity.ok(new SuccessResponseDto("You have finalised this bid for your advertise."));
+		return ResponseEntity.ok(new SimpleMessageResponseDto("You have finalised this bid for your advertise."));
 	}
 
 	public ResponseEntity<Object> getBidForAdvertise(Long user_id, Long advertise_id){

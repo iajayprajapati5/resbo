@@ -17,7 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.Entity.ConfirmationToken;
 import com.example.demo.Entity.UserEntity;
-import com.example.demo.dto.SuccessResponseDto;
+import com.example.demo.dto.SimpleMessageResponseDto;
 import com.example.demo.dto.UserAuthCheckDto;
 import com.example.demo.dto.UserDetailsDto;
 import com.example.demo.repository.UserRepository;
@@ -56,7 +56,7 @@ public class ResboUserDetailService implements UserDetailsService{
 		final ConfirmationToken confirmationToken = new ConfirmationToken(user);
 		confirmationTokenService.saveConfirmationToken(confirmationToken);
 		sendConfirmationMail(user.getEmail(), confirmationToken.getConfirmationToken());
-		return ResponseEntity.ok(new SuccessResponseDto("User added successfully."));
+		return ResponseEntity.ok(new SimpleMessageResponseDto("User added successfully."));
 	}
 	
 	public UserAuthCheckDto isAuthenticated(Authentication authentication) throws NullPointerException{

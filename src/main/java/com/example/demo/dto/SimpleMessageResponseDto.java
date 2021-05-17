@@ -1,9 +1,9 @@
 package com.example.demo.dto;
 
-public class SuccessResponseDto {
+public class SimpleMessageResponseDto {
 	private String message;
 
-	public SuccessResponseDto(String message) {
+	public SimpleMessageResponseDto(String message) {
 		this.message = message;
 	}
 

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Entity.BookAdvertiseEntity;
 import com.example.demo.dto.MyBookAdvertiseDto;
-import com.example.demo.dto.SuccessResponseDto;
+import com.example.demo.dto.SimpleMessageResponseDto;
 import com.example.demo.dto.UserDetailsDto;
 import com.example.demo.requests.UserBookAdvertise;
 import com.example.demo.services.BookAdvertiseService;
@@ -36,7 +36,7 @@ public class UserAdvertiseController {
 	public ResponseEntity<Object> addNewAdvertise(@PathVariable Long user_id, UserBookAdvertise userBook){
 		try {
 			BookAdvertiseEntity savedAdvertise = bookAdvService.addNewBookAdvertise(user_id, userBook);
-			return new ResponseEntity<>(new SuccessResponseDto("Advertise added successfully."), HttpStatus.OK);
+			return new ResponseEntity<>(new SimpleMessageResponseDto("Advertise added successfully."), HttpStatus.OK);
 		}catch(IOException ioe) {
 			ioe.printStackTrace();
 			return new ResponseEntity<>("Failed to add new advertise.", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -53,7 +53,7 @@ public class UserAdvertiseController {
 			UserBookAdvertise userBook){
 		try {
 			BookAdvertiseEntity updatedAdvertise = bookAdvService.updateBookAdvertise(user_id, advertise_id, userBook);
-			return new ResponseEntity<>(new SuccessResponseDto("Advertise updated successfully."), HttpStatus.OK);
+			return new ResponseEntity<>(new SimpleMessageResponseDto("Advertise updated successfully."), HttpStatus.OK);
 		}catch(IOException ioe) {
 			ioe.printStackTrace();
 			return new ResponseEntity<>("Failed to update advertise.", HttpStatus.INTERNAL_SERVER_ERROR);

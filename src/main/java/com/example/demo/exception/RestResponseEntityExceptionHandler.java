@@ -23,8 +23,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 	
 	@ExceptionHandler({ Unauthorized.class })
-    public ResponseEntity<Object> handleU(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> handleUnauthorized(Exception ex, WebRequest request) {
 		Map<String, String> res = this.responseMessage("You are not allowed to perform this operation.");
+        return new ResponseEntity<Object>(res, new HttpHeaders(), HttpStatus.FORBIDDEN);
+    }
+	
+	@ExceptionHandler({ ResourceNotFoundException.class })
+    public ResponseEntity<Object> notFound(Exception ex, WebRequest request) {
+		Map<String, String> res = this.responseMessage(ex.getMessage());
         return new ResponseEntity<Object>(res, new HttpHeaders(), HttpStatus.FORBIDDEN);
     }
 	

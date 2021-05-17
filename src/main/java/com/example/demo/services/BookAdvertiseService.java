@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.Entity.BookAdvertiseEntity;
 import com.example.demo.dto.AdvertiseDetailsDto;
 import com.example.demo.dto.MyBookAdvertiseDto;
-import com.example.demo.dto.SuccessResponseDto;
+import com.example.demo.dto.SimpleMessageResponseDto;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.BookAdvertiseRepository;
 import com.example.demo.repository.UserRepository;
@@ -94,7 +94,7 @@ public class BookAdvertiseService {
 			advertiseRepo.deleteById(advertise_id);
 			return advertise;
 		}).orElseThrow( () -> new ResourceNotFoundException("Advertise not found with given Id."));
-		return new ResponseEntity<>(new SuccessResponseDto("Advertise deleted Successfully."), HttpStatus.OK);
+		return new ResponseEntity<>(new SimpleMessageResponseDto("Advertise deleted Successfully."), HttpStatus.OK);
 	} 
 	
 	public List<Map<String, Object>> getFilteredAdvertise(String advertiseName){
