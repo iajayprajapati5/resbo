@@ -15,6 +15,8 @@ public class AdvertiseDetailsDto {
 	private String created_at;
 	private int user_interested;
 	
+	public AdvertiseDetailsDto() {}
+	
 	public AdvertiseDetailsDto(Long id, String name, String description, String image, String genre, int price,
 			Long user_id, String user_fullname, String address, boolean finalised, String created_at, int user_interested) {
 		this.id = id;

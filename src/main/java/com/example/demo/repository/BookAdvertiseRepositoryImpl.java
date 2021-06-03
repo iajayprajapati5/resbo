@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import javax.persistence.ColumnResult;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+
+import com.example.demo.dto.AdvertiseDetailsDto;
 
 @Repository
 public class BookAdvertiseRepositoryImpl implements CustomBookAdvertiseRepository{
@@ -79,6 +83,36 @@ public class BookAdvertiseRepositoryImpl implements CustomBookAdvertiseRepositor
 		}
 		
 		return result;
+	}
+
+	@Override
+	public Optional<AdvertiseDetailsDto> findAdvertiseAndUserDetailsById(Long advertise_id, Long user_id) {
+		String query = "SELECT b.id, b.name, b.description, b.image_name as image, b.genre, b.price, b.user_id, CONCAT(u.firstname, ' ', u.lastname) AS user_fullname, u.pincode, b.finalised, COALESCE(to_char(b.created_at, 'MM-DD-YYYY HH24:MI:SS'), '') AS created_at, (SELECT count(*) FROM user_interest_advertise WHERE user_id = :user_id AND advertise_id = :advertise_id) AS user_interested FROM book_advertise b JOIN users u ON b.user_id = u.id WHERE b.id = :advertise_id";
+ 
+		Query q = entityManager.createNativeQuery(query);
+		q.setParameter("user_id", user_id);
+		q.setParameter("advertise_id", advertise_id);
+		
+		List<Object[]> filteredData = q.getResultList();
+		
+		if(filteredData.size() == 0) return null;
+		Object[] result = filteredData.get(0);
+		
+		AdvertiseDetailsDto advertiseDetails = new AdvertiseDetailsDto(
+				((BigInteger) result[0]).longValue(),
+				(String) result[1],
+				(String) result[2],
+				(String) result[3],
+				(String) result[4],
+				(int) result[5],
+				((BigInteger) result[6]).longValue(),
+				(String) result[7],
+				(String) result[8],
+				(boolean) result[9],
+				(String) result[10],
+				((BigInteger) result[11]).intValue()
+			);
+		return Optional.of(advertiseDetails);
 	}
 
 }

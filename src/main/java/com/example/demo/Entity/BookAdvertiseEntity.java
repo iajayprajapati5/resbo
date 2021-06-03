@@ -28,31 +28,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "book_advertise")
 //@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
-@NamedNativeQuery(name = "AdvertiseAndUserDetailsQuery",
-query = "SELECT b.id, b.name, b.description, b.image_name as image, b.genre, b.price, b.user_id, CONCAT(u.firstname, ' ', u.lastname) AS user_fullname, u.pincode, b.finalised, b.created_at, (SELECT count(*) FROM user_interest_advertise WHERE user_id = :user_id AND advertise_id = :advertise_id) AS user_interested FROM book_advertise b JOIN users u ON b.user_id = u.id WHERE b.id = :advertise_id",
-resultSetMapping = "AdvertiseAndUserDetailsMapping",
-resultClass = AdvertiseDetailsDto.class
-)
-@SqlResultSetMapping(
-	name = "AdvertiseAndUserDetailsMapping",
-    classes = @ConstructorResult(
-        columns = {
-            @ColumnResult(name = "id", type = Long.class),
-            @ColumnResult(name = "name",  type = String.class),
-            @ColumnResult(name = "description",  type = String.class),
-            @ColumnResult(name = "image",  type = String.class),
-            @ColumnResult(name = "genre",  type = String.class),
-            @ColumnResult(name = "price", type = int.class),
-            @ColumnResult(name = "user_id", type = Long.class),
-            @ColumnResult(name = "user_fullname",  type = String.class),
-            @ColumnResult(name = "pincode",  type = String.class),
-            @ColumnResult(name = "finalised", type = boolean.class),
-            @ColumnResult(name = "created_at",  type = String.class),
-            @ColumnResult(name = "user_interested",  type = int.class)
-        },
-        targetClass = AdvertiseDetailsDto.class
-    )
-)
 public class BookAdvertiseEntity extends AuditModel{
 	
 	@Id

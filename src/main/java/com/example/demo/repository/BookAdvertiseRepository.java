@@ -16,8 +16,5 @@ import com.example.demo.dto.AdvertiseDetailsDto;
 @Repository
 public interface BookAdvertiseRepository extends JpaRepository<BookAdvertiseEntity, Long>, CustomBookAdvertiseRepository{
 	
-	@Query(name = "AdvertiseAndUserDetailsQuery", nativeQuery = true)
-	Optional<AdvertiseDetailsDto> findAdvertiseAndUserDetailsById(@Param("advertise_id") Long advertise_id, @Param("user_id") Long user_id);
-	
 	List<BookAdvertiseEntity> findAllByUserId(Long user_id);
 }
